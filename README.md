@@ -29,7 +29,7 @@
 ## Технические требования
 
 - Приложение разработано с использованием React и Redux
-- Использован [официальный API Hacker News](https://github.com/HackerNews/API). Вызовы Hacker News API и обработка данных от него производятся напрямую с фронтенда.
+- Использован [официальный API Hacker News](https://github.com/HackerNews/API). Вызовы Hacker News API и обработка данных от него производятся напрямую с фронтенда (кроме случая, если вы сделаете опциональное задание про Node.JS).
 - Роутинг выполнен с использованием [React Router v5](https://github.com/ReactTraining/react-router/releases/tag/v5.0.0)
 - Фреймворк UI любой на ваше усмотрение (как пример [React Bootstrap](https://react-bootstrap.github.io/) или [Semantic UI](https://react.semantic-ui.com/)). Можно хоть на голом CSS, главное, чтобы выглядело красиво.
 - Пакетный менеджер `npm`
@@ -39,7 +39,7 @@
 
 ## Опциональные задания
 - Покрытие кода юнит-тестами
-- Бэкенд для хостинга статики и красивого API на Node.JS
+- Бэкенд для хостинга статики и API для инкапсуляции внешних запросов на Node.JS
 - Конфигурация сборки проекта в Docker image
 
 
