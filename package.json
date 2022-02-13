@@ -8,7 +8,10 @@
     "@testing-library/user-event": "^13.2.1",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
+    "react-redux": "^7.2.6",
     "react-scripts": "5.0.0",
+    "redux": "^4.1.2",
+    "redux-thunk": "^2.4.1",
     "web-vitals": "^2.1.0"
   },
   "scripts": {
@@ -34,5 +37,8 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "devDependencies": {
+    "@redux-devtools/extension": "^3.2.2"
   }
 }
