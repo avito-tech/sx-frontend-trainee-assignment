@@ -11,12 +11,13 @@ import react from "react";
 import { useSelector } from "react-redux";
 import { dateToTime } from "../../utils/helpers/dateFormatter";
 import { useNavigate } from 'react-router-dom';
+import { newsSelector } from "../../redux/selectros";
 
 
 const MainPage = (props) => {
-  const news = useSelector((state) => state.news);
+  const news = useSelector(newsSelector)
   const isLoading = useSelector((state) => state.isLoading);
-  const navifate = useNavigate();
+  const navigate = useNavigate();
   if (isLoading) {
     return <h1>Данные загружаются</h1>;
   }
@@ -24,7 +25,7 @@ const MainPage = (props) => {
   return (
     <Grid>
       {news.map((item, index) => (
-        <CardActionArea onClick={()=>navifate(`/news/${item.id}`)}>
+        <CardActionArea onClick={()=>navigate(`/news/${item.id}`)}>
           <Card
             sx={{
               display: "flex",
