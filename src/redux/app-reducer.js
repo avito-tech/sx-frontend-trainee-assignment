@@ -2,6 +2,7 @@ import { commentsSelector } from "./selectros";
 
 const SET_NEWS = "SET_NEWS";
 const SET_COMMENTS = 'SET_COMMENTS';
+const SET_SUBCOMMENTS = 'SET_SUBCOMMENTS'
 
 const MAXIMUM_NEWS = 100;
 
@@ -16,6 +17,14 @@ const setComments = (comments) => {
   return {
     type:SET_COMMENTS,
     comments
+  }
+}
+
+const setSubcomments = (commentId, subcomments) => {
+  return {
+    type:SET_SUBCOMMENTS,
+    commentId,
+    subcomments
   }
 }
 
@@ -51,13 +60,22 @@ export const getCommentsThunk = (kids) => async (dispatch) => {
   console.log(comments)
   return dispatch(setComments(comments))
 }
- 
+
+ export const getSubcommentsThunk = (commentId, commentKids) => async (dispatch) => {
+  const subcomments = await Promise.all(
+    commentKids.map((id) => fetch(`https://hacker-news.firebaseio.com/v0/item/${id}.json?print=pretty`))
+  ).then((results) => Promise.all(results.map((r)=>r.json())))
+  console.log(subcomments)
+  return dispatch(setSubcomments(commentId, subcomments))
+}
+  
     
 
 let initialState = {
   news: [],
   comments: [],
   isLoading: true,
+  subcomments : {},
 };
 
 export const appReducer = (state = initialState, action) => {
@@ -68,10 +86,16 @@ export const appReducer = (state = initialState, action) => {
         news: action.news,
         isLoading: false,
       }
-      case SET_COMMENTS: {
+      case SET_COMMENTS: 
         return {
           ...state,
           comments:action.comments
+        }
+      case SET_SUBCOMMENTS: 
+      return{
+        ...state,
+        subcomments: {
+          ...state.subcomments, [action.commentId] : action.subcomments
         }
       }
 
