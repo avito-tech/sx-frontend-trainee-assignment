@@ -17,6 +17,7 @@ import { useNavigate } from 'react-router-dom';
 import { newsSelector } from "../../redux/selectros";
 import { getNewsThunk } from "../../redux/app-reducer";
 import { useDispatch } from "react-redux";
+import { useEffect } from "react";
 
 
 const MainPage = (props) => {
@@ -24,6 +25,14 @@ const MainPage = (props) => {
   const news = useSelector(newsSelector)
   const isLoading = useSelector((state) => state.isLoading);
   const navigate = useNavigate();
+
+  useEffect(() => {
+    dispatch(getNewsThunk());
+  const interval = setInterval(() => {
+    dispatch(getNewsThunk());
+  },60000)
+  return() => clearInterval(interval)
+}, []);
 
 
   if (isLoading) {

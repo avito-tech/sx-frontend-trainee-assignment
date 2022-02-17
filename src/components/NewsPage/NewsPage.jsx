@@ -6,12 +6,13 @@ import {
   CardContent,
   Grid,
   IconButton,
+  LinearProgress,
   Link,
   Typography,
 } from "@mui/material";
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import {
   getCommentsThunk,
   getCurrentNewsByIdThunk,
@@ -35,11 +36,14 @@ const NewsPage = () => {
   const news = useSelector(newsSelector);
   const comments = useSelector(commentsSelector);
   const currentNews = useSelector(getCurrentNewsById(selectedId));
+  const navigate = useNavigate()
  
+
 
 
   useEffect(()=>{
     if(!news.length) {
+      
     dispatch(getCurrentNewsByIdThunk(selectedId))
   }
 },[news])
@@ -50,7 +54,13 @@ const NewsPage = () => {
     }
   }, [currentNews?.kids]);
 
-
+  if(!selectedId) {
+    return navigate('/')
+  }
+  
+  if(!news.length) {
+    return <LinearProgress/>
+  }
 
 
  
@@ -65,7 +75,7 @@ const NewsPage = () => {
         <Card>
           <IconButton>
             <RefreshIcon></RefreshIcon>
-            Обновить список 
+            Обновить список комментариев
           </IconButton>
           <CardContent>
             <Typography component='h2' variant='h5'>{currentNews.title}</Typography>

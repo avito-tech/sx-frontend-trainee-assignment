@@ -13,14 +13,8 @@ import { Route, Routes } from "react-router-dom";
 import NewsPage from "./components/NewsPage/NewsPage";
 
 function App() {
-  const dispatch = useDispatch();
-    useEffect(() => {
-      dispatch(getNewsThunk());
-    const interval = setInterval(() => {
-      dispatch(getNewsThunk());
-    },60000)
-    return() => clearInterval(interval)
-  }, []);
+  
+   
 
 
 
