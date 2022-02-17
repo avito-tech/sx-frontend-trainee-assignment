@@ -30,7 +30,7 @@ const Comment = ({text,time,kids,by,id}) => {
     console.log(subcomments)
 
   return (
-    <Grid>
+    <Grid item xs ={12}>
       <Accordion >
         <AccordionSummary expandIcon={<ExpandMoreIcon />}>
           <Box>
@@ -42,11 +42,11 @@ const Comment = ({text,time,kids,by,id}) => {
           </Box>
         </AccordionSummary>
         {subcomments?.length && subcomments.map((comment)=> (
-            <AccordionDetails>
-                <Typography>
+            <AccordionDetails> 
+                <Typography variant="subtitle2">
                 by {comment.by}
                 </Typography>
-                <Typography>
+                <Typography variant="body2">
                     {comment.text}
                 </Typography>
             </AccordionDetails>

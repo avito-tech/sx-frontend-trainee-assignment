@@ -3,7 +3,7 @@ import React from "react";
 import "./App.css";
 import { getNewsThunk } from "./redux/app-reducer";
 import { useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 
 import Header from "./components/Header/Header";
 import MainPage from "./components/MainPage/MainPage";
@@ -14,16 +14,15 @@ import NewsPage from "./components/NewsPage/NewsPage";
 
 function App() {
   const dispatch = useDispatch();
-  /*   useEffect(() => {
+    useEffect(() => {
+      dispatch(getNewsThunk());
     const interval = setInterval(() => {
       dispatch(getNewsThunk());
     },60000)
     return() => clearInterval(interval)
-  }, []); */
-
-  useEffect(() => {
-    dispatch(getNewsThunk());
   }, []);
+
+
 
   return (
     <div>

@@ -35,7 +35,7 @@ const NewsPage = () => {
   const news = useSelector(newsSelector);
   const comments = useSelector(commentsSelector);
   const currentNews = useSelector(getCurrentNewsById(selectedId));
-  /* const subcomments = useSelector(getSubcommentsById(comments.id)) */
+ 
 
 
   useEffect(()=>{
@@ -50,11 +50,7 @@ const NewsPage = () => {
     }
   }, [currentNews?.kids]);
 
-  useEffect(() => {
-    if (comments.id && comments.kids) {
-        dispatch(getSubcommentsThunk(comments.id, comments.kids))
-    }
-}, [comments.id, comments.kids])
+
 
 
  
@@ -64,15 +60,16 @@ const NewsPage = () => {
   console.log(comments);
 
   return (
-    <Grid>
-      <Grid>
+    <Grid container spacing={1}>
+      <Grid item xs={12}>
         <Card>
           <IconButton>
             <RefreshIcon></RefreshIcon>
+            Обновить список 
           </IconButton>
           <CardContent>
-            <Typography>{currentNews.title}</Typography>
-            <Typography>
+            <Typography component='h2' variant='h5'>{currentNews.title}</Typography>
+            <Typography variant="subtitle1" color="textSecondary">
               {currentNews.score} poinst by {currentNews.by} {currentNews.time}
             </Typography>
             <Link href={currentNews.url}>News source</Link>

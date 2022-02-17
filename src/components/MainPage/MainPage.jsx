@@ -3,27 +3,48 @@ import {
   CardActionArea,
   CardContent,
   Grid,
+  IconButton,
+  LinearProgress,
   Link,
   Typography,
 } from "@mui/material";
+import RefreshIcon from "@mui/icons-material/Refresh";
 
-import react from "react";
+
 import { useSelector } from "react-redux";
 import { dateToTime } from "../../utils/helpers/dateFormatter";
 import { useNavigate } from 'react-router-dom';
 import { newsSelector } from "../../redux/selectros";
+import { getNewsThunk } from "../../redux/app-reducer";
+import { useDispatch } from "react-redux";
 
 
 const MainPage = (props) => {
+  const dispatch = useDispatch()
   const news = useSelector(newsSelector)
   const isLoading = useSelector((state) => state.isLoading);
   const navigate = useNavigate();
+
+
   if (isLoading) {
-    return <h1>Данные загружаются</h1>;
+    return (
+      <div>
+      <h1> Данные загружаются </h1>
+      <LinearProgress/>
+      </div>
+    )
+  }
+  
+  const handleRefresh = ()=> {
+    dispatch(getNewsThunk())
   }
 
   return (
-    <Grid>
+    <Grid >
+      <IconButton onClick={()=>handleRefresh()}>
+            <RefreshIcon></RefreshIcon>
+            Обновить список новостей
+          </IconButton>
       {news.map((item, index) => (
         <CardActionArea onClick={()=>navigate(`/news/${item.id}`)}>
           <Card
