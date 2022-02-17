@@ -28,6 +28,23 @@ import RefreshIcon from "@mui/icons-material/Refresh";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import Comment from "./Comment";
 
+
+const useEffectCommentsRefresher = (kids) => {
+ const dispatch =useDispatch() 
+
+ useEffect(()=> {
+   if(kids?.length) {
+     dispatch(getCommentsThunk(kids));
+     const interval =setInterval(()=> {
+      dispatch(getCommentsThunk(kids))
+     },60000)
+     return() => clearInterval(interval)
+   }
+ },[kids])
+}
+
+
+
 const NewsPage = () => {
     
 
@@ -37,6 +54,9 @@ const NewsPage = () => {
   const comments = useSelector(commentsSelector);
   const currentNews = useSelector(getCurrentNewsById(selectedId));
   const navigate = useNavigate()
+  const handleRefresh =() => {
+    dispatch(getCommentsThunk(currentNews?.kids))
+  }
  
 
 
@@ -48,11 +68,16 @@ const NewsPage = () => {
   }
 },[news])
 
-  useEffect(() => {
+useEffectCommentsRefresher(currentNews?.kids)
+
+
+
+
+/*   useEffect(() => {
     if (currentNews.kids?.length) {
       dispatch(getCommentsThunk(currentNews.kids));
     }
-  }, [currentNews?.kids]);
+  }, [currentNews?.kids]); */
 
   if(!selectedId) {
     return navigate('/')
@@ -73,7 +98,7 @@ const NewsPage = () => {
     <Grid container spacing={1}>
       <Grid item xs={12}>
         <Card>
-          <IconButton>
+          <IconButton onClick={() => handleRefresh()}>
             <RefreshIcon></RefreshIcon>
             Обновить список комментариев
           </IconButton>
