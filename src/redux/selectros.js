@@ -2,7 +2,8 @@ import { createSelector } from "reselect";
 
 export const newsSelector = (state) => state.news;
 export const commentsSelector = (state) => state.comments;
-export const subcommentsSelector = (commentId) =>(state) => state.subcomments[commentId]
+export const subcommentsSelector = (commentId) => (state) =>
+  state.subcomments[commentId];
 
 export const getCurrentNewsById = (selectedId) =>
   createSelector(newsSelector, (news) => {
@@ -15,8 +16,6 @@ export const getCurrentNewsComment = (selectedId) =>
     const currentNewsComment = comments.find((item) => item.id == selectedId);
     return currentNewsComment.kids;
   });
-
-
 
 /*   export const getSubcommentsById =(commentId) => createSelector(
     (state)=>state.subcomments,

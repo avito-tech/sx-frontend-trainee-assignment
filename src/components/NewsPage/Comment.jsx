@@ -1,37 +1,31 @@
-import React, { useEffect } from "react";
+import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import {
   Accordion,
   AccordionDetails,
   AccordionSummary,
   Box,
-  Card,
-  CardContent,
   Grid,
-  IconButton,
-  Link,
   Typography,
 } from "@mui/material";
-import RefreshIcon from "@mui/icons-material/Refresh";
-import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
-import { useDispatch } from "react-redux";
+import React, { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { getSubcommentsThunk } from "../../redux/app-reducer";
-import { useSelector } from "react-redux";
-import { getSubcommentsById, subcommentsSelector } from "../../redux/selectros";
+import { subcommentsSelector } from "../../redux/selectros";
 
-const Comment = ({text,time,kids,by,id}) => {
-    const dispatch = useDispatch()
-    const subcomments = useSelector(subcommentsSelector(id))
+const Comment = ({ text, time, kids, by, id }) => {
+  const dispatch = useDispatch();
+  const subcomments = useSelector(subcommentsSelector(id));
 
-    useEffect(()=> {
-        if(id && kids) {
-            dispatch(getSubcommentsThunk(id,kids))
-        }
-    },[id,kids])
-    console.log(subcomments)
+  useEffect(() => {
+    if (id && kids) {
+      dispatch(getSubcommentsThunk(id, kids));
+    }
+  }, [id, kids]);
+  console.log(subcomments);
 
   return (
-    <Grid item xs ={12}>
-      <Accordion >
+    <Grid item xs={12}>
+      <Accordion>
         <AccordionSummary expandIcon={<ExpandMoreIcon />}>
           <Box>
             <Typography variant="subtitle2">
@@ -41,19 +35,16 @@ const Comment = ({text,time,kids,by,id}) => {
             <Typography variant="body2">{text}</Typography>
           </Box>
         </AccordionSummary>
-        {subcomments?.length && subcomments.map((comment)=> (
-            <AccordionDetails> 
-                <Typography variant="subtitle2">
-                by {comment.by}
-                </Typography>
-                <Typography variant="body2">
-                    {comment.text}
-                </Typography>
+        {subcomments?.length &&
+          subcomments.map((comment) => (
+            <AccordionDetails>
+              <Typography variant="subtitle2">by {comment.by}</Typography>
+              <Typography variant="body2">{comment.text}</Typography>
             </AccordionDetails>
-        ))}
+          ))}
       </Accordion>
     </Grid>
   );
 };
 
-export default Comment
+export default Comment;

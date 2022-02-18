@@ -13,23 +13,18 @@ import { Route, Routes } from "react-router-dom";
 import NewsPage from "./components/NewsPage/NewsPage";
 
 function App() {
-  
-   
-
-
-
   return (
     <div>
       <Container maxWidth="lg">
         <Header />
-      
-      <Routes>
-        <Route path="/" element={<MainPage />} />
-      </Routes>
-      <Routes>
-        <Route path="/news/:id" element={<NewsPage />} />
-      </Routes>
-      <Footer />
+
+        <Routes>
+          <Route path="/" element={<MainPage />} />
+        </Routes>
+        <Routes>
+          <Route path="/news/:id" element={<NewsPage />} />
+        </Routes>
+        <Footer />
       </Container>
     </div>
   );

@@ -1,5 +1,5 @@
 import { format } from "date-fns";
 
-export const dateToTime = (date) => {
-    return format(date, "HH:mm");
-  };
+export const timestampToTime = (timestamp) => {
+  return new Date(timestamp * 1000).toLocaleString("ru-RU");
+};
